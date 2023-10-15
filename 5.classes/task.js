@@ -108,14 +108,12 @@ class Student {
     };
 
     getAverageBySubject(discipline) {
-        if (this.marks[discipline] != undefined || this.marks[discipline].length > 0) {
+        if (this.marks[discipline] != undefined) {
             let sum = this.marks[discipline].reduce((acc, item) => acc += item);
-            return sum / this.marks[discipline].length;
-        } else if (this.marks[discipline] != undefined || this.marks[discipline].length === 0) {
-            return console.log('оценок нет');
+            return this.marks[discipline].length > 0 ? sum / this.marks[discipline].length : this.marks[discipline].length === 0 ? console.log('оценок нет') : console.log(`Предмета ${discipline} не существует`);
         } else {
-            return console.log(`Предмета ${discipline} не существует`);
-        };
+            return 0;
+        }
     };
 
     getAverage() {
@@ -127,7 +125,9 @@ class Student {
             length += this.marks[key].length;
         };
 
-        return sum / length;
+        let result = sum / length;
+
+       return Number.isFinite(result) ? result : 0;
     };
 
     exclude(reason) {
